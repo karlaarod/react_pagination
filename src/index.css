@@ -11,3 +11,19 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.posts-list, .pagination-nav, h1{
+  margin: auto;
+  width: 80%;
+  padding: 10px;
+}
+
+.single-post{
+  border: 1px solid rgba(0, 0, 0, 0.253);
+  padding: 5px;
+}
+
+.loading-icon{
+  margin-left: 35em;
+  margin-top: 15em;
+}

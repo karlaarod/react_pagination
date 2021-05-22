@@ -1,42 +1,40 @@
 /* eslint-disable */
 
-import React, {useState, useEffect} from 'react';
-import axios from 'axios';
-import Pagination from './components/Pagination';
-import { fetchPost } from './api';
-import { Posts } from './components/Posts';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import PaginationCount from "./components/Pagination";
+import { Posts } from "./components/Posts";
 
 function App() {
-
   const [posts, setPosts] = useState([]);
-  const [loading, setLoading]= useState(false);
-  const [currentPage, setCurrentPage]= useState(1)
-  const [postPerPage, setPostsPerPage]= useState(10)
+  const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage, setPostsPerPage] = useState(10);
 
-  useEffect(()=>{
-    setLoading(true);
-    
-    const fetchPost = async() =>{ 
-      const res= await axios.get('https://jsonplaceholder.typicode.com/posts') 
+  useEffect(() => {
+    const fetchPost = async () => {
+      setLoading(true);
+
+      const res = await axios.get("https://jsonplaceholder.typicode.com/posts");
       setPosts(res.data);
       setLoading(false);
-
-    }
-    fetchPost()
-  }, [])
-
-//get current post
-  const lastPost= currentPage * postPerPage;
-  const firstPost= lastPost - postPerPage;
-  const currentPosts = posts.slice(firstPost, lastPost);
+    };
+    fetchPost();
+  }, []);
 
   return (
     <div className="App">
-      <Pagination/>
-      <Posts
-      posts ={posts}
-      loading= {loading}
+      <h1>Blog</h1>
+      <PaginationCount
+        postsPerPage={postsPerPage}
+        posts={posts}
+        setCurrentPage={setCurrentPage}
       />
+      <Posts 
+      posts={posts} 
+      currentPage= {currentPage}
+      postsPerPage = {postsPerPage}
+      loading={loading} />
     </div>
   );
 }
